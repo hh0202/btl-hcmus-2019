@@ -25,5 +25,18 @@ bool readFile(const string& filename, int LF1[], int LF2[], int& EXP1, int& EXP2
 int calcForce(int array1[], int array2[]);
 int gatherForces(int LF1[], int LF2[]);
 
+// task 2.1
+string determineRightTarget(const string& target);
+
+// task 2.2
+bool isUpper(char a);
+bool isLower(char a);
+char caesarCipher(char a, int shift);
+string decodeTarget(const string& message, int EXP1, int EXP2);
+
+// task 3
+void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, int E);
+
+
 #endif
 
