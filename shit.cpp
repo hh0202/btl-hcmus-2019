@@ -141,11 +141,6 @@ string decodeTarget(const string& message, int EXP1, int EXP2){
     return "INVALID";
 }
 
-void bigAssMathProblem(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, double& T1change, double& T2change) {
-    T1change = (LF1 / (LF1 + LF2)) * (T1 + T2) * (1 + ((EXP1 - EXP2) / 100));
-    T2change = T1 + T2 - T1change;
-}
-
 void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, int E)
 {
     double T1change = 0, T2change = 0;
