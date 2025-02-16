@@ -13,6 +13,56 @@ bool extractArray(char* str, int arr[], int size)
     return count == size;
 }
 
+void adjustValue(int LF1[], int LF2[], int& EXP1, int& EXP2, int& T1, int& T2, int& E) {
+    for (int i = 0; i < 17; i++) {
+        if (LF1[i] > 1000) {
+            LF1[i] = 1000;
+        }
+        else if (LF1[i] < 0) {
+            LF1[i] = 0;
+        }
+    }
+    for (int i = 0; i < 17; i++) {
+        if (LF2[i] > 1000) {
+            LF2[i] = 1000;
+        }
+        else if (LF2[i] < 0) {
+            LF2[i] = 0;
+        }
+    }
+    if (EXP1 > 600) {
+        EXP1 = 600;
+    }
+    else if (EXP1 < 0) {
+        EXP1 = 0;
+    }
+    if (EXP2 > 600) {
+        EXP2 = 600;
+    }
+    else if (EXP2 < 0) {
+        EXP2 = 0;
+    }
+    if (T1 > 3000) {
+        T1 = 3000;
+    }
+    else if (T1 < 0) {
+        T1 = 0;
+    }
+    if (T2 > 3000) {
+        T2 = 3000;
+    }
+    else if (T2 < 0) {
+        T2 = 0;
+    }
+    if (E > 99) {
+        E = 99;
+    }
+    else if (E < 0) {
+        E = 0;
+    }
+}
+
+
 bool readFile(const string& filename, int LF1[], int LF2[], int& EXP1, int& EXP2, int& T1, int& T2, int& E)
 {
     char data[MAX_LINES][MAX_LINE_LENGTH];
@@ -34,7 +84,7 @@ bool readFile(const string& filename, int LF1[], int LF2[], int& EXP1, int& EXP2
     if (sscanf(data[2], "%d %d", &EXP1, &EXP2) != 2) return false;
     if (sscanf(data[3], "%d %d", &T1, &T2) != 2) return false;
     if (sscanf(data[4], "%d", &E) != 1) return false;
-
+    adjustValue(LF1, LF2, EXP1, EXP2, T1, T2, E);
     return true;
 }
 
@@ -62,14 +112,25 @@ int gatherForces(int LF1[], int LF2[]) {
 string determineRightTarget(const string& target) {
     int count = 0;
     int number[10];
+    bool lastWasDigit = false;
     for (int i = 0; i < target.length(); i++) {
-        if (target[i] >= '0' && target[i] <= '9') {
-            number[count] = target[i] - '0';
-            count++;
+        if (isdigit(target[i])) {
+            if (lastWasDigit) return "INVALID"; 
+            number[count++] = target[i] - '0';
+            lastWasDigit = true;
+        }
+        else {
+            lastWasDigit = false;
         }
     }
     int ID;
     if (count == 1) { 
+        if (number[0] >= 0 && number[0] <= 2) {
+            return "DECOY";
+        }
+        else if (number[0] < 0 && number[0] > 7) {
+            return "INVALID";
+            }
         ID = number[0];
     }
     else if (count == 2) { 
@@ -141,50 +202,4 @@ string decodeTarget(const string& message, int EXP1, int EXP2){
     return "INVALID";
 }
 
-void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, int E)
-{
-    double T1change = 0, T2change = 0;
 
-    if (E == 0)
-    {
-        double ratio = double(LF1) / (LF1 + LF2);
-        double expFactor = 1.0 + double(EXP1 - EXP2) / 100.0;
-
-        T1change = ratio * (T1 + T2) * expFactor;
-        T2change = (T1 + T2) - T1change;
-
-        T1 = round(T1change);
-        T2 = round(T2change);
-    }
-    else
-    {
-        if (E >= 1 && E <= 9)
-        {
-            T1 -= round(T1 * (E / 100.0));
-            T2 -= round(T2 * (E / 200.0)); 
-        }
-        else if (E >= 10 && E <= 29)
-        {
-            T1 += E * 50;
-            T2 += E * 50;
-        }
-        else if (E >= 30 && E <= 59)
-        {
-            T1 += round(T1 * (E / 200.0)); 
-            T2 += round(T2 * (E / 500.0)); 
-        }
-        else if (E >= 60 && E <= 99)
-        {
-            return;
-        }
-    }
-    if (T1 < 0)
-        T1 = 0;
-    if (T1 > 3000)
-        T1 = 3000;
-
-    if (T2 < 0)
-        T2 = 0;
-    if (T2 > 3000)
-        T2 = 3000;
-}
