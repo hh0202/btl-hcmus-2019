@@ -1,5 +1,8 @@
 # Update
 
+## File main
+- Chỉnh để hiện kết quả của task 0, 1, 2,1
+
 ## Task 0
 - Thêm hàm `adjustValue`
 
