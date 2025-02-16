@@ -18,6 +18,7 @@ const int MAX_LINE_LENGTH = 100;
 // task 0
 
 bool extractArray(char* str, int arr[], int size);
+void adjustValue(int LF1[], int LF2[], int& EXP1, int& EXP2, int& T1, int& T2, int& E);
 bool readFile(const string& filename, int LF1[], int LF2[], int& EXP1, int& EXP2, int& T1, int& T2, int& E);
 
 
@@ -34,8 +35,6 @@ bool isLower(char a);
 char caesarCipher(char a, int shift);
 string decodeTarget(const string& message, int EXP1, int EXP2);
 
-// task 3
-void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, int E);
 
 
 #endif
