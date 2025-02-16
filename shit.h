@@ -35,6 +35,9 @@ bool isLower(char a);
 char caesarCipher(char a, int shift);
 string decodeTarget(const string& message, int EXP1, int EXP2);
 
+// task 3
+int calcForce2(int arr[]);
+void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, int E);
 
 
 #endif
