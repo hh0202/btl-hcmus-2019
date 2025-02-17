@@ -272,6 +272,32 @@ int planAttack(int LF1, int LF2, int EXP1, int EXP2, int T1, int T2, int battleF
     return S;
 }
 
+int resupply(int shortfall, int supply[5][5]) {
+    int flatSupply[25], idx = 0;
+    for (int i = 0; i < 5; i++)
+        for (int j = 0; j < 5; j++)
+            flatSupply[idx++] = supply[i][j];
+
+    int minSum = 99999999;
+
+    for (int a = 0; a < 21; a++) {
+        for (int b = a + 1; b < 22; b++) {
+            for (int c = b + 1; c < 23; c++) {
+                for (int d = c + 1; d < 24; d++) {
+                    for (int e = d + 1; e < 25; e++) {
+                        int sum = flatSupply[a] + flatSupply[b] + flatSupply[c] + flatSupply[d] + flatSupply[e];
+                        if (sum >= shortfall && sum < minSum) {
+                            minSum = sum;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return minSum;
+}
+
 
 
 
