@@ -202,4 +202,76 @@ string decodeTarget(const string& message, int EXP1, int EXP2){
     return "INVALID";
 }
 
+int calcForce2(int arr[]) {
+    int S = 0;
+    for (int i = 0; i < 17; i++) {
+        S += arr[i];
+    }
+    return S;
+}
+void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int& T1, int& T2, int E) {
+    double LF1d = double(LF1);
+    double LF2d = double(LF2);
+    double EXP1d = double(EXP1);
+    double EXP2d = double(EXP2);
+    double T1d = double(T1);
+    double T2d = double(T2);
+
+    if (LF1d + LF2d == 0) {
+        T1 = 0;
+        T2 = 0;
+        return;
+    }
+
+    if (E == 0) {
+        double delta_T1 = (LF1d / (LF1d + LF2d) * (T1d + T2d)) * (1 + (EXP1d - EXP2d) / 100.0);
+        double delta_T2 = (T1d + T2d) - delta_T1;
+
+        T1d = delta_T1;
+        T2d = delta_T2;
+    }
+    else if (E >= 1 && E <= 9) {
+        T1d -= (E * 1.0 / 100) * T1d;
+        T2d -= (E * 0.5 / 100) * T2d;
+    }
+    else if (E >= 10 && E <= 29) {
+        T1d += E * 50;
+        T2d += E * 50;
+    }
+    else if (E >= 30 && E <= 59) {
+        T1d += (E * 0.5 / 100) * T1d;
+        T2d += (E * 0.2 / 100) * T2d;
+    }
+
+    if (T1d > 3000) T1d = 3000;
+    else if (T1d < 0) T1d = 0;
+
+    if (T2d > 3000) T2d = 3000;
+    else if (T2d < 0) T2d = 0;
+
+    T1 = int(T1d);
+    T2 = int(T2d);
+}
+
+int planAttack(int LF1, int LF2, int EXP1, int EXP2, int T1, int T2, int battleField[10][10]){
+    double S = 0;
+    S = (LF1 + LF2) + (EXP1 + EXP2) * 5 + (T1 + T2) * 2;
+    cout << "S =" << " " << S << endl;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            if (i % 2 == 0) {
+                S -= ((battleField[i][j] * 2.0) / 3.0);
+            }
+            else {
+                S -= ((battleField[i][j] * 3.0) / 2.0);
+            }
+        }
+
+    }
+    S = ceil(S);
+    return S;
+}
+
+
+
 
