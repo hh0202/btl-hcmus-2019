@@ -2,4 +2,8 @@
 
 *Discontinued*
 
-*Để đàn em có cái mà coi + tăng độ uy tín tài khoản github thì sau 22-2-2025 tên repo sẽ về với tên BTL HCMUT CO1027 2025 nhé*
+## Lời nhắn cuối
+ 
+- Phiên bản này gần như hoàn chỉnh, chỉ cần fix lại theo ver mới😉
+- Sau 22/2/2025, repo sẽ có tên mới là "BTL CO1027 2025 HCMUT" nha
+- Chúc bé 10 điểm/qua môn
