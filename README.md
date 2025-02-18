@@ -1,3 +1,3 @@
 # Update
 
-## Discontinued
+*Discontinued*
